@@ -6,6 +6,7 @@ import thunk from 'redux-thunk';
 import rootReducer, { type State } from 'reducers';
 import requestsMiddleware from 'middlewares/requests-middleware';
 import ravenMiddleware from 'middlewares/raven-middleware';
+import syncMiddleware from 'middlewares/sync-middleware';
 
 // For redux-devtools-extensions - see
 // https://github.com/zalmoxisus/redux-devtools-extension
@@ -19,20 +20,21 @@ const composeEnhancers =
 /* eslint-enable no-underscore-dangle */
 
 export default function configureStore(defaultState?: State) {
+  syncMiddleware();
   const middlewares = [ravenMiddleware, thunk, requestsMiddleware];
 
-  if (process.env.NODE_ENV === 'development') {
-    /* eslint-disable */
-    const { createLogger } = require('redux-logger');
-    /* eslint-enable */
-    const logger = createLogger({
-      level: 'info',
-      collapsed: true,
-      duration: true,
-      diff: true,
-    });
-    middlewares.push(logger);
-  }
+  // if (process.env.NODE_ENV === 'development') {
+  // [> eslint-disable <]
+  // const { createLogger } = require('redux-logger');
+  // [> eslint-enable <]
+  // const logger = createLogger({
+  // level: 'info',
+  // collapsed: true,
+  // duration: true,
+  // diff: true,
+  // });
+  // middlewares.push(logger);
+  // }
 
   const storeEnhancer = applyMiddleware(...middlewares);
 
