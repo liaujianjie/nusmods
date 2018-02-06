@@ -8,7 +8,7 @@ import '@firebase/auth';
 import { FirebaseAuth } from 'react-firebaseui';
 // import firebaseui from 'firebaseui';
 import 'firebaseui';
-import '~firebaseui/dist/firebaseui.css';
+import 'firebase.scss';
 
 import type { State } from 'reducers';
 
